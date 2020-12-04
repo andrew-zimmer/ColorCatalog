@@ -1,18 +1,20 @@
-import * as React from 'react';
-import { Text, View, Image, StyleSheet, Dimensions} from 'react-native';
+import React, {useState} from 'react';
+import { Text, View, StyleSheet, TouchableHighlight, Dimensions} from 'react-native';
 
-import picBiscuit from './assets/biscuit.jpg'
-import picJungle from './assets/jungle.jpg'
 
 
 export default function App(){
-
+  const [backgroundColor, setBackgroundColor] = useState('blue')
 
   return (
-    <View style={styles.page}>
+    <View style={[styles.page, {backgroundColor}]}>
 
-      <Image style={styles.image} source={picBiscuit}/>
-      <Image style={styles.image} source={picJungle}/>
+      <TouchableHighlight style={styles.button} onPress={() => setBackgroundColor('yellow')} underlayColor='orange'>
+        <View style={styles.row}>
+          <View style={[styles.simple, {backgroundColor: 'yellow'}]}/>
+          <Text style={styles.buttonText}>yellow</Text>
+        </View>
+      </TouchableHighlight>
 
     </View>
   )
@@ -21,25 +23,33 @@ export default function App(){
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 40,
-    backgroundColor: '#DDD'
-  },
-  text: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 22,
-    color: 'red',
-    backgroundColor: 'yellow',
-    margin: 10,
-    padding: 5
 
   },
-  image: {
-    flex: 1,
-    borderRadius: 50,
+  button: {
     margin: 10,
-    width: Dimensions.get('window').width - 10
+    padding: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    alignSelf: 'stretch',
+    backgroundColor: 'rgba(255, 255, 255, .8)'
+  },
+  buttonText: {
+    fontSize: 30,
+    textAlign: 'center'
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  simple: {
+    height: 20,
+    width: 20,
+    margin: 5,
+    borderRadius: 10,
+    backgroundColor: 'white'
   }
+
 })
