@@ -1,21 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { Text, View, ActivityIndicator, ProgressBarAndroid, Button, Alert, Dimensions, Platform } from 'react-native';
+import Constants from 'expo-constants';
 
-export default function App() {
+const {height, width } = Dimensions.get('window')
+
+export default function App(){
+
+  const onButtonPress = () => {
+    Alert.alert(`${new Date().toLocaleTimeString()} button press`)
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    <View style={{padding: 50}}>
+      <ProgressBarAndroid
+        progress={.5}
+        styleAttr='Horizontal'
+        indeterminate={false}
+        color='blue'
+      />
+      <ActivityIndicator size='large' color='#61dbfb'/>
+      <Button title="click me" onPress={onButtonPress}/>
+      <Text>{Platform.OS}</Text>
+      <Text>Height: {height}</Text>
+      <Text>Width: {width}</Text>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    </View>
+  )
+}
