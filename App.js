@@ -2,6 +2,17 @@ import React, {useState} from 'react';
 import { Text, View, StyleSheet, TouchableHighlight, Dimensions} from 'react-native';
 
 
+function ColorButton({color, onPress = f => f }) {
+  return (
+  <TouchableHighlight style={styles.button} onPress={() => onPress(color)} underlayColor='orange'>
+        <View style={styles.row}>
+          <View style={[styles.simple, {backgroundColor: color}]}/>
+          <Text style={styles.buttonText}>{color}</Text>
+        </View>
+     </TouchableHighlight>
+  )
+}
+
 
 export default function App(){
   const [backgroundColor, setBackgroundColor] = useState('blue')
@@ -9,12 +20,10 @@ export default function App(){
   return (
     <View style={[styles.page, {backgroundColor}]}>
 
-      <TouchableHighlight style={styles.button} onPress={() => setBackgroundColor('yellow')} underlayColor='orange'>
-        <View style={styles.row}>
-          <View style={[styles.simple, {backgroundColor: 'yellow'}]}/>
-          <Text style={styles.buttonText}>yellow</Text>
-        </View>
-      </TouchableHighlight>
+      <ColorButton color='red' onPress={setBackgroundColor}/>
+      <ColorButton color='yellow' onPress={setBackgroundColor}/>
+      <ColorButton color='blue' onPress={setBackgroundColor}/>
+      <ColorButton color='green' onPress={setBackgroundColor}/>
 
     </View>
   )
@@ -34,7 +43,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 10,
     alignSelf: 'stretch',
-    backgroundColor: 'rgba(255, 255, 255, .8)'
+    backgroundColor: 'rgba(255, 255, 255, .7)'
   },
   buttonText: {
     fontSize: 30,
