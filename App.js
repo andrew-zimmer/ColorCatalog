@@ -1,64 +1,18 @@
-import React, {useState} from 'react';
-import { Text, View, StyleSheet, TouchableHighlight, Dimensions} from 'react-native';
+import React from 'react'
+import ColorList from './components/ColorList'
+import ColorDetails from './components/ColorDetails'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
 
+const {Navigator, Screen} = createStackNavigator()
 
-function ColorButton({color, onPress = f => f }) {
+export default function App() {
   return (
-  <TouchableHighlight style={styles.button} onPress={() => onPress(color)} underlayColor='orange'>
-        <View style={styles.row}>
-          <View style={[styles.simple, {backgroundColor: color}]}/>
-          <Text style={styles.buttonText}>{color}</Text>
-        </View>
-     </TouchableHighlight>
+    <NavigationContainer>
+      <Navigator>
+        <Screen name='Home' options={{title: 'Color List'}} component={ColorList} />
+        <Screen name='Details' component={ColorDetails} />
+      </Navigator>
+    </NavigationContainer>
   )
 }
-
-
-export default function App(){
-  const [backgroundColor, setBackgroundColor] = useState('blue')
-
-  return (
-    <View style={[styles.page, {backgroundColor}]}>
-
-      <ColorButton color='red' onPress={setBackgroundColor}/>
-      <ColorButton color='yellow' onPress={setBackgroundColor}/>
-      <ColorButton color='blue' onPress={setBackgroundColor}/>
-      <ColorButton color='green' onPress={setBackgroundColor}/>
-
-    </View>
-  )
-}
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-  },
-  button: {
-    margin: 10,
-    padding: 10,
-    borderWidth: 2,
-    borderRadius: 10,
-    alignSelf: 'stretch',
-    backgroundColor: 'rgba(255, 255, 255, .7)'
-  },
-  buttonText: {
-    fontSize: 30,
-    textAlign: 'center'
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  simple: {
-    height: 20,
-    width: 20,
-    margin: 5,
-    borderRadius: 10,
-    backgroundColor: 'white'
-  }
-
-})
